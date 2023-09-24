@@ -17,7 +17,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Adithya
+              Shri Vaishnavi Fuels
             </a>
           </div>
         </Col>
@@ -30,7 +30,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Adithya
+                Shri Vaishnavi Fuels
               </NavLink>
             </NavItem>
 

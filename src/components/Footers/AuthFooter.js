@@ -18,7 +18,7 @@ const Login = () => {
                   href=""
                   target="_blank"
                 >
-                  Adithya
+                  Shri Vaishnavi Fuels
                 </a>
               </div>
             </Col>
@@ -29,7 +29,7 @@ const Login = () => {
                     href=""
                     target="_blank"
                   >
-                    Adithya
+                    Shri Vaishnavi Fuels
                   </NavLink>
                 </NavItem>
                 <NavItem>

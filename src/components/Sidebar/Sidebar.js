@@ -107,8 +107,10 @@ const Sidebar = (props) => {
               className="navbar-brand-img"
               src={logo.imgSrc}
             />
+            <p>Shri Vaishnavi Fuels</p>
           </NavbarBrand>
         ) : null}
+        
         {/* User */}
         <Nav className="align-items-center d-md-none">
           <UncontrolledDropdown nav>
