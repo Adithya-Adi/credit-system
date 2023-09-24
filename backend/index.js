@@ -2,7 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-
+import adminRoutes from "./routes/adminRoutes.js";
+import customerRoutes from "./routes/customerRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to Shri Vaishnavi Fuels");
 });
 
+app.use("/api/admin", adminRoutes);
+app.use("/api/customer", customerRoutes);
 
 
 app.listen(PORT, () => {
