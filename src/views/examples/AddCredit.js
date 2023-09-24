@@ -243,7 +243,7 @@ const AddCredit = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="New York"
+                            // defaultValue=""
                             id="input-city"
                             placeholder="City"
                             type="text"
