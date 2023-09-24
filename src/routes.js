@@ -45,7 +45,7 @@ var routes = [
   },
   {
     path: "/add-credit",
-    name: "Add Credit Amount",
+    name: "Update Credit",
     icon: "ni ni-money-coins",
     component: <AddCredit />,
     layout: "/admin",

@@ -1,6 +1,5 @@
 
-
-// reactstrap components
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -13,11 +12,26 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Select from "react-select";
 // core components
 // import UserHeader from "components/Headers/UserHeader.js";
 import Header from "components/Headers/Header.js";
 
 const AddCredit = () => {
+  const [creditType, setCreditType] = useState("add");
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const customerOptions = [
+    { value: "customer1", label: "Customer 1" },
+    { value: "customer2", label: "Customer 2" },
+  ];
+
+  const handleCreditChange = (e) => {
+    setCreditType(e.target.value);
+  };
+
+  const handleCustomerChange = (selectedOption) => {
+    setSelectedCustomer(selectedOption);
+  };
   return (
     <>
       <Header />
@@ -115,7 +129,7 @@ const AddCredit = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h3 className="mb-0">Add Credit</h3>
+                    <h3 className="mb-0">Update Credit</h3>
                   </Col>
                   <Col className="text-right" xs="4">
                     {/* <Button
@@ -132,7 +146,7 @@ const AddCredit = () => {
               <CardBody>
                 <Form>
                   <h6 className="heading-small text-muted mb-4">
-                    User information
+                    Credit information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -142,14 +156,15 @@ const AddCredit = () => {
                             className="form-control-label"
                             htmlFor="input-username"
                           >
-                            Username
+                            Customer Name
                           </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="lucky.jesse"
-                            id="input-username"
-                            placeholder="Username"
-                            type="text"
+                          <Select
+                            id="customer-name"
+                            options={customerOptions}
+                            value={selectedCustomer}
+                            onChange={handleCustomerChange}
+                            isSearchable
+                            placeholder="Select a customer"
                           />
                         </FormGroup>
                       </Col>
@@ -177,42 +192,47 @@ const AddCredit = () => {
                             className="form-control-label"
                             htmlFor="input-first-name"
                           >
-                            First name
+                            Amount
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Lucky"
+                            // defaultValue="Lucky"
                             id="input-first-name"
-                            placeholder="First name"
-                            type="text"
+                            placeholder="Enter Amount"
+                            type="number"
                           />
                         </FormGroup>
                       </Col>
+                    </Row>
+                    <Row>
                       <Col lg="6">
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-last-name"
+                            htmlFor="credit-type"
                           >
-                            Last name
+                            Credit
                           </label>
                           <Input
+                            type="select"
                             className="form-control-alternative"
-                            defaultValue="Jesse"
-                            id="input-last-name"
-                            placeholder="Last name"
-                            type="text"
-                          />
+                            id="credit-type"
+                            onChange={handleCreditChange}
+                            value={creditType}
+                          >
+                            <option value="add">Add</option>
+                            <option value="subtract">Subtract</option>
+                          </Input>
                         </FormGroup>
                       </Col>
                     </Row>
                   </div>
                   <hr className="my-4" />
                   {/* Address */}
-                  <h6 className="heading-small text-muted mb-4">
-                    Contact information
-                  </h6>
-                  <div className="pl-lg-4">
+                  {/* <h6 className="heading-small text-muted mb-4"> 
+                    Contact information*/}
+                  {/* </h6> */}
+                  {/* <div className="pl-lg-4">
                     <Row>
                       <Col md="12">
                         <FormGroup>
@@ -285,9 +305,9 @@ const AddCredit = () => {
                       </Col>
                     </Row>
                   </div>
-                  <hr className="my-4" />
+                  <hr className="my-4" /> */}
                   {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">About me</h6>
+                  {/* <h6 className="heading-small text-muted mb-4">About me</h6>
                   <div className="pl-lg-4">
                     <FormGroup>
                       <label>About Me</label>
@@ -300,15 +320,15 @@ const AddCredit = () => {
                         type="textarea"
                       />
                     </FormGroup>
-                  </div>
+                  </div> */}
                   <Button
-                      color="success  "
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Save
-                    </Button>
+                    color="success  "
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                    size="sm"
+                  >
+                    Save
+                  </Button>
                 </Form>
               </CardBody>
             </Card>

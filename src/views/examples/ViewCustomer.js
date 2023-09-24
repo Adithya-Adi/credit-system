@@ -34,7 +34,7 @@ const ViewCustomer = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">View Customer Credits</h3>
+                <h3 className="mb-0">View Customer</h3>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
@@ -63,12 +63,12 @@ const ViewCustomer = () => {
                         </a> */}
                         <Media>
                           <span className="mb-0 text-sm">
-                            Argon Design System
+                            Customer Name
                           </span>
                         </Media>
                       </Media>
                     </th>
-                    <td>$2,500 USD</td>
+                    <td>₹2,500</td>
                     <td>
                       <Badge color="" className="badge-dot mr-4">
                         <i className="bg-warning" />

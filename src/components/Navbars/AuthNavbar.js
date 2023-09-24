@@ -24,6 +24,7 @@ const AdminNavbar = () => {
               src={require("../../assets/img/brand/Indian_Oil_Logo.svg.png")}
             />
           </NavbarBrand>
+          Shri Vaishnavi Fuels
           <button className="navbar-toggler" id="navbar-collapse-main">
             <span className="navbar-toggler-icon" />
           </button>
