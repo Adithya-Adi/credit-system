@@ -1,10 +1,9 @@
-
-
-// reactstrap components
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
-  CardHeader,
+  // CardHeader,
   CardBody,
   FormGroup,
   Form,
@@ -15,13 +14,52 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import axios from "axios";
+import { environment } from "../../environment/environment";
+
+const baseUrl = environment.baseUrl;
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const requestData = {
+        emailMobile: email,
+        password: password,
+      };
+      const response = await axios.post(`${baseUrl}/api/admin/login`, requestData);
+      if (response.data.message === "Successfully signed in") {
+        localStorage.setItem("token", response.data.token);
+        const userData = JSON.stringify(response.data.data);
+        localStorage.setItem("userData", userData); 
+        alert("Login Successfull");
+        navigate("/admin/dashboard");
+      } else {
+        alert("Login falied");
+      }
+    } catch (error) {
+      alert("Login falied");
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
-          <CardHeader className="bg-transparent pb-5">
+          {/* <CardHeader className="bg-transparent pb-5">
             <div className="text-muted text-center mt-2 mb-3">
               <small>Sign in with</small>
             </div>
@@ -61,12 +99,12 @@ const Login = () => {
                 <span className="btn-inner--text">Google</span>
               </Button>
             </div>
-          </CardHeader>
+          </CardHeader> */}
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
+              <small>Sign in</small>
             </div>
-            <Form role="form">
+            <Form role="form" onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -75,9 +113,12 @@ const Login = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email"
-                    type="email"
-                    autoComplete="new-email"
+                    placeholder="Email/Phone"
+                    type="text"
+                    // autoComplete="new-email"
+                    name="email"
+                    value={email}
+                    onChange={handleEmailChange}
                   />
                 </InputGroup>
               </FormGroup>
@@ -92,6 +133,9 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    name="password"
+                    value={password}
+                    onChange={handlePasswordChange}
                   />
                 </InputGroup>
               </FormGroup>
@@ -109,7 +153,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="submit">
                   Sign in
                 </Button>
               </div>

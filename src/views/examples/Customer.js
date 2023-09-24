@@ -1,6 +1,5 @@
 
-
-// reactstrap components
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -16,7 +15,33 @@ import {
 // core components
 // import UserHeader from "components/Headers/UserHeader.js";
 import Header from "components/Headers/Header.js";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { environment } from "../../environment/environment";
+const baseUrl = environment.baseUrl;
+
 const Customer = () => {
+  const [customerData, setCustomerData] = useState([]);
+  const token = localStorage.getItem("token");
+  const userData = localStorage.getItem("userData");
+  if (!token || !userData) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+      const {data: response} = await axios.post(`${baseUrl}/api/customer/addCustomer`, customerData);
+      console.log(response);
+      if(response.message === "Customer details added successfully") {
+        alert("Customer Added successfully");
+      } else {
+        alert("Customer with same name already exists");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <Header />
@@ -129,7 +154,7 @@ const Customer = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <h6 className="heading-small text-muted mb-4">
                     Customer information
                   </h6>
@@ -149,6 +174,8 @@ const Customer = () => {
                             id="input-username"
                             placeholder="Enter Customer Name"
                             type="text"
+                            name="fullName"
+                            onChange={(e) => setCustomerData({ ...customerData, fullName: e.target.value })}
                           />
                         </FormGroup>
                       </Col>
@@ -167,6 +194,8 @@ const Customer = () => {
                             id="input-email"
                             placeholder="Enter Phone Number"
                             type="number"
+                            name="phoneNumber"
+                            onChange={(e) => setCustomerData({ ...customerData, phoneNumber: e.target.value })}
                           />
                         </FormGroup>
                       </Col>
@@ -186,6 +215,8 @@ const Customer = () => {
                             id="input-first-name"
                             placeholder="Enter Balance"
                             type="Number"
+                            name="balance"
+                            onChange={(e) => setCustomerData({ ...customerData, balance: e.target.value })}
                           />
                         </FormGroup>
                       </Col>
@@ -195,8 +226,9 @@ const Customer = () => {
                   <Button
                       color="success  "
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={handleSubmit}
                       size="sm"
+                      type="submit"
                     >
                       Add customer
                     </Button>

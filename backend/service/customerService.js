@@ -8,7 +8,7 @@ export const addCustomer = async (customerData) => {
     });
     if (existingCustomer) {
       return {
-        status: 409,
+        status: 200,
         message: "Customer with the same name already exists",
       };
     }

@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/addCustomer", addCustomerController);
 router.get("/getAllCustomer", getAllCustomersController);
-router.get("/updateCredit", updateCreditToCustomerController);
+router.put("/updateCredit", updateCreditToCustomerController);
 
 export default router;

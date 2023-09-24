@@ -29,12 +29,19 @@ import {
   chartExample1,
   chartExample2,
 } from "variables/charts.js";
+import { Navigate } from "react-router-dom";
 
 import Header from "components/Headers/Header.js";
 
 const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
+  const token = localStorage.getItem("token");
+  const userData = localStorage.getItem("userData");
+  
+  if (!token || !userData) {
+    return <Navigate to="/auth/login" replace />;
+  }
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
