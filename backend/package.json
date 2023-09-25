@@ -1,11 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is backend for credit-system",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npm run build",
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
