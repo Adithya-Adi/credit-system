@@ -118,13 +118,13 @@ const ViewCustomer = () => {
                           >
                             View More
                           </Button>
-                          <Button
+                          {/* <Button
                             color="danger"
                             onClick={(e) => e.preventDefault()}
                             size="sm"
                           >
                             Delete
-                          </Button>
+                          </Button> */}
                         </div>
                       </td>
                     </tr>
