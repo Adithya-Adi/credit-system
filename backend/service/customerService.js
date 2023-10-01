@@ -39,7 +39,7 @@ export const getAllCustomers = async () => {
         message: "No Customer Found",
       };
     }
-    
+
     return {
       status: 200,
       message: "Customer details retrieved successfully",
@@ -70,14 +70,21 @@ export const updateCreditToCustomer = async (creditData) => {
       ...creditData
     });
 
-    await newCredit.save();
+
     if (creditData.status === "Add Credit") {
       customer.balance += creditData.amount;
     }
-    if(creditData.status === "Credit Paid") {
-      customer.balance -= creditData.amount;
+    if (creditData.status === "Credit Paid") {
+      if (customer.balance >= creditData.amount) {
+        customer.balance -= creditData.amount;
+      } else {
+        return {
+          status: 200,
+          message: "Insufficient balance",
+        };
+      }
     }
-
+    await newCredit.save();
     await customer.save();
 
     return {
@@ -94,33 +101,34 @@ export const updateCreditToCustomer = async (creditData) => {
   }
 };
 
-// export const getCreditAmountForCustomer = async (customerId) => {
-//   try {
-//     const customer = await Customer.findById(customerId);
+export const getCreditAmountForCustomer = async (customerId) => {
+  try {
+    const customer = await Customer.findById(customerId);
 
-//     if (!customer) {
-//       return {
-//         status: 404,
-//         message: "Customer not found",
-//       };
-//     }
+    if (!customer) {
+      return {
+        status: 404,
+        message: "Customer not found",
+      };
+    }
 
-//     const credits = await Credit.find({customerId: customerId});
+    const credits = await Credit.find({ customerId: customerId }).populate("adminId");
 
-//     return {
-//       status: 200,
-//       message: "Total credit amount retrieved successfully",
-//       data: {
-//         customerId: customer._id,
-//         fullName: customer.fullName,
-//         totalCreditAmount: ,
-//       },
-//     };
-//   } catch (err) {
-//     console.error(err);
-//     return {
-//       status: 500,
-//       message: "Internal server error",
-//     };
-//   }
-// };
+    return {
+      status: 200,
+      message: "Total credit amount retrieved successfully",
+      data: {
+        customerId: customer._id,
+        fullName: customer.fullName,
+        totalCreditAmount: customer.balance,
+        data: credits,
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      status: 500,
+      message: "Internal server error",
+    };
+  }
+};

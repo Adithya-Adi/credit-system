@@ -2,6 +2,7 @@ import {
   addCustomer,
   getAllCustomers,
   updateCreditToCustomer,
+  getCreditAmountForCustomer,
 } from "../service/customerService.js";
 
 export const addCustomerController = async (req, res) => {
@@ -40,5 +41,19 @@ export const updateCreditToCustomerController = async (req, res) => {
     res
       .status(500)
       .json({ message: "An error occurred while updating customer credit" });
+  }
+};
+
+export const getCreditAmountForCustomerController = async (req, res) => {
+  try {
+    const {customerId} = req.params
+    const result = await getCreditAmountForCustomer(customerId);
+    res
+      .status(result.status)
+      .json(result);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "An error occurred while getting customer credit" });
   }
 };

@@ -5,6 +5,7 @@ import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
 import "./Sidebar.scss";
+import { useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -40,6 +41,13 @@ import {
 var ps;
 
 const Sidebar = (props) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    navigate("/auth/login");
+  };
+
   const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -160,7 +168,7 @@ const Sidebar = (props) => {
                 <span>Support</span>
               </DropdownItem> */}
               {/* <DropdownItem divider /> */}
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+              <DropdownItem onClick={() => handleLogout()}>
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>

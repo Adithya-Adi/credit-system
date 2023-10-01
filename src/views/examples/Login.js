@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { environment } from "../../environment/environment";
+import { Navigate } from "react-router-dom";
 
 const baseUrl = environment.baseUrl;
 
@@ -23,6 +24,13 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const token = localStorage.getItem("token");
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  if (token || userData) {
+    return <Navigate to="/admin/add-credit" replace />;
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,7 +53,7 @@ const Login = () => {
         const userData = JSON.stringify(response.data.data);
         localStorage.setItem("userData", userData); 
         alert("Login Successfull");
-        navigate("/admin/dashboard");
+        navigate("/admin/add-credit");
       } else {
         alert("Login falied");
       }

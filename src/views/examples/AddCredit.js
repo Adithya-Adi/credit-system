@@ -66,14 +66,16 @@ const AddCredit = () => {
         amount: parseInt(amount),
         status: creditType,
       };
-      const {data: response} = await axios.put(`${baseUrl}/api/customer/updateCredit`, requestData); 
-      if(response.message === "Credit added successfully") {
+      const { data: response } = await axios.put(`${baseUrl}/api/customer/updateCredit`, requestData);
+      if (response.message === "Credit added successfully") {
         alert("Credit updated");
+      } else if (response.message === "Insufficient balance") {
+        alert("Insufficient Balance");
       } else {
         alert("Failed");
       }
     } catch (error) {
-      alert("Failed");  
+      alert("Failed");
       console.log(error);
     }
   };
